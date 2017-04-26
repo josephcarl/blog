@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Joseph Carl</title>
-    <link>https://josephcarl.github.io/index.xml</link>
-    <description>Recent content on Joseph Carl</description>
+    <title>Pages on Joseph Carl</title>
+    <link>https://josephcarl.github.io/page/index.xml</link>
+    <description>Recent content in Pages on Joseph Carl</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 10 Apr 2017 22:34:02 -0700</lastBuildDate>
-    <atom:link href="https://josephcarl.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://josephcarl.github.io/page/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Resume</title>
@@ -128,18 +128,6 @@
 &lt;/ul&gt;
 
 &lt;hr /&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>First Blog Post</title>
-      <link>https://josephcarl.github.io/2017/04/first-blog-post/</link>
-      <pubDate>Sun, 09 Apr 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://josephcarl.github.io/2017/04/first-blog-post/</guid>
-      <description>&lt;p&gt;I finally took the plunge and am attempting blogging. Specifically, as this site is directly connected to my Github, it seems like a great place to showcase some of my projects and write about my experiences as I learn data analytics. Stack Overflow and numerous blogs have come to my aid as I have been learning R and Python over the last several months, so I hope I can use this blog to share some of the things I&amp;rsquo;ve learned as well. Plus, I have never built a website before, so this is also a great learning opportunity. I may also write about some topics not directly related to data analytics as time goes on. We&amp;rsquo;ll see how it goes!&lt;/p&gt;
-
-&lt;p&gt;This site was created with the &lt;code&gt;blogdown&lt;/code&gt; R package, RStudio, &lt;code&gt;Hugo&lt;/code&gt;, and &lt;a href=&#34;https://tclavelle.github.io/blog/blogdown_github/&#34;&gt;this&lt;/a&gt; helpful how-to guide. I am using the two-repository method described in the post. Unfortunately, I could not get my computer to recognize the &lt;code&gt;josephcarl.github.io&lt;/code&gt; folder via the &lt;code&gt;publishDir&lt;/code&gt; option in the &lt;code&gt;config.toml&lt;/code&gt; file, as described in the tutorial. I had to manually copy my files to that folder as a workaround, then commit the &lt;code&gt;josephcarl.github.io&lt;/code&gt; folder to its repo. Thankfully that doesn&amp;rsquo;t take too much work, but I&amp;rsquo;m hoping to find a better workaround soon. It&amp;rsquo;s going to be a work in progress, but I&amp;rsquo;m excited to get started!&lt;/p&gt;
 </description>
     </item>
     
