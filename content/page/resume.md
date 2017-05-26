@@ -9,8 +9,8 @@ title = "Resume"
 date = "2017-04-10T22:34:02-07:00"
 showPagination = false
 # categories = ["category","subcategory"]
-
 +++
+
 
 ---
 
@@ -20,17 +20,17 @@ Email: [josephcarl7@gmail.com](mailto:josephcarl7@gmail.com)
 
 Github: [josephcarl](https://github.com/josephcarl)
 
+LinkedIn: [Joseph Carl](https://www.linkedin.com/in/joseph-carl/)
+
 ---
 
-## Education
+## About Me
 
-**Master of Science in Business Analytics** | Expected August 2017 | Seattle University
+I'm a Master's student in Business Analytics at Seattle University, graduating this August. I first became interested in analytics while studying applied economics at the University of Minnesota, and knew I wanted to pursue graduate education to improve my analytical skills. Seattle University's program turned out to be just what I was looking for! 
 
-- Coursework in: Data Visualization, Databases, Data Mining, Programming, Econometrics, and Statistics 
+Some of my key skills include data visualization and statistical analysis using tools like R, Python, SQL, and PowerBI. Some of my interests for analytics include using data to understand energy, environmental, and urban issues like housing and transportation, though I'm interested in any analytics career opportunity that can allow me to learn and continue to develop my skill set.
 
-**Bachelor of Science in Applied Economics** | May 2015 | University of Minnesota - Twin Cities
-
-- Econometrics Project: Built Logistic Regression Model to Predict Job Satisfaction using SAS
+Please feel free to check out this website and my [Github page](https://github.com/josephcarl) to see some of the projects I'm working on. I am looking for data analytics opportunities in the Seattle area, so if you know of any, please feel free to email me or contact me via LinkedIn. 
 
 ---
 
@@ -40,9 +40,36 @@ Github: [josephcarl](https://github.com/josephcarl)
 
 - Quantitative analysis: Regression, forecasting, linear programming, and cost-benefit analysis
 
-- Microsoft Office: Excel (including regression, Pivot Tables, and vlookup), Word, and PowerPoint
+- Microsoft Office: Excel (including Pivot Tables, vlookup, and Solver), Word, and PowerPoint
 
 - Foreign Language: Proficient in speaking, reading, and writing Mandarin Chinese
+
+---
+
+## Education
+
+**Master of Science in Business Analytics** | Expected August 2017 | Seattle University
+
+- **Coursework in**: Data Visualization, Databases, Data Mining, Programming, Econometrics, and Statistics 
+
+- **Visualization Project**
+  + Built Dashboard and Visualizations to Show How Californians Use Various Modes of Commuting to Work using R and Power BI 
+
+- **Data Mining Project**
+  + Creating Random Forest, Logistic Regression, and Linear Discriminant Analysis Models to Predict Backordered Products using R
+  
+- **Marketing Research Project**
+  + Surveyed 50 Seattle University library visitors and analyzed survey data to understand how they use the facilities
+  
+- **Econometrics Projects**
+  + Built Logistic Regression Model to Predict Mortgage Loan Approval using R
+  + Tested for Wage Discrimination with Regression Models using R
+
+
+**Bachelor of Science in Applied Economics** | May 2015 | University of Minnesota - Twin Cities
+
+- **Econometrics Project**
+  + Built Logistic Regression Model to Predict Job Satisfaction using SAS
 
 ---
 
