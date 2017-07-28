@@ -26,7 +26,7 @@ LinkedIn: [Joseph Carl](https://www.linkedin.com/in/joseph-carl/)
 
 ## About Me
 
-I'm a Master's student in Business Analytics at Seattle University, graduating this August. I first became interested in analytics while studying applied economics at the University of Minnesota, and knew I wanted to pursue graduate education to improve my analytical skills. Seattle University's program turned out to be just what I was looking for! 
+I'm a Master's student in Business Analytics at Seattle University, graduating this December. I first became interested in analytics while studying applied economics at the University of Minnesota, and knew I wanted to pursue graduate education to improve my analytical skills. Seattle University's program turned out to be just what I was looking for! 
 
 Some of my key skills include data visualization and statistical analysis using tools like R, Python, SQL, and PowerBI. Some of my interests for analytics include using data to understand energy, environmental, and urban issues like housing and transportation, though I'm interested in any analytics career opportunity that can allow me to learn and continue to develop my skill set.
 
@@ -36,9 +36,9 @@ Please feel free to check out this website and my [Github page](https://github.c
 
 ## Skills
 
-- Data Analysis/Visualization Tools: R/RStudio (including ggplot2), Python, Power BI, SAS, SQL, git/Github
+- Data Analysis/Visualization Tools: R/RStudio (including ggplot2), Python, Power BI, Tableau, SAS, SQL, Spark, git/Github, Unix
 
-- Quantitative analysis: Regression, forecasting, linear programming, and cost-benefit analysis
+- Quantitative analysis: Regression, Machine Learning Algorithms, Forecasting, Linear Programming, and Cost-Benefit Analysis
 
 - Microsoft Office: Excel (including Pivot Tables, vlookup, and Solver), Word, and PowerPoint
 
@@ -48,7 +48,7 @@ Please feel free to check out this website and my [Github page](https://github.c
 
 ## Education
 
-**Master of Science in Business Analytics** | Expected August 2017 | Seattle University
+**Master of Science in Business Analytics** | Expected December 2017 | Seattle University
 
 - **Coursework in**: Data Visualization, Databases, Data Mining, Programming, Econometrics, and Statistics 
 
@@ -56,7 +56,10 @@ Please feel free to check out this website and my [Github page](https://github.c
   + Built Dashboard and Visualizations to Show How Californians Use Various Modes of Commuting to Work using R and Power BI 
 
 - **Data Mining Project**
-  + Creating Random Forest, Logistic Regression, and Linear Discriminant Analysis Models to Predict Backordered Products using R
+  + Created Random Forest, Logistic Regression, and Linear Discriminant Analysis Models to Predict Backordered Products using R
+  
+- **Forecasting Project**
+  + Modeled Changes in Chinese Carbon Dioxide Emissions per Capita Over Time and Predicting Future Emissions with Vector Autoregression Model using R
   
 - **Marketing Research Project**
   + Surveyed 50 Seattle University library visitors and analyzed survey data to understand how they use the facilities
@@ -74,6 +77,19 @@ Please feel free to check out this website and my [Github page](https://github.c
 ---
 
 ## Professional Experience
+
+**Data Analyst Intern** | June 2017 - Present
+
+CommerceHub | Seattle, WA
+
+- Assisting in developing lifetime value (LTV) and churn models for over 1500 products using R
+
+- Developed gradient boosting model to predict with 88% accuracy if a product will be reordered
+
+- Building dashboards in Power BI to show gross sales and growth across merchants, product categories, and sales channels
+
+- Building dashboards using Prometheus and Grafana to monitor changes in inventory and product feeds between merchants and sales channels
+
 
 **Financial Institution Specialist** | July 2015 - August 2016
 

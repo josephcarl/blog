@@ -5,7 +5,7 @@ date: '2017-06-18'
 slug: ''
 categories: ["R"]
 tags: ["R"]
-draft: yes
+draft: no
 showSocial: false
 coverImage: /
 ---
@@ -24,6 +24,6 @@ My favorite part of the conference was the `purrr` workshop put on by Charlotte 
 
 The full-length and lightning talks were also quite interesting. It seemed that most of the talks (at least the ones I attended) were either academic or health research-focused. While it was interesting to see how R is used in these areas, some talks were harder to follow simply because I did not have the domain knowledge needed to understand the topic. There were few industry-focused speakers. Based on the people I met, it seemed like a decent amount attending the conference were working for businesses as data analysts or data scientists, but few presentations had a business focus for applications of R. Perhaps this just means the people working in industry did not submit as many talk proposals as the people working in academia or health research. Hopefully next year, I can submit a talk proposal about my own work in whatever job I have and change that trend! Either way, it was still exciting to see the wide variety in which people use R in their respective fields. 
 
-As for my own lightning talk about building this website with the `blogdown` package and Github Pages, it also went really well. It was exciting to share what I have learned about building this site, plus made for great public speaking practice. A few people even told me at the end of the day they are now interested in building their own personal websites using R! If you would like to see the slides for my presentation, you can view them [here](https://josephcarl.github/io/slides/JoeCarl-CascadiaRConf-Slides).
+As for my own lightning talk about building this website with the `blogdown` package and Github Pages, it also went really well. It was exciting to share what I have learned about building this site, plus made for great public speaking practice. A few people even told me at the end of the day they are now interested in building their own personal websites using R! If you would like to see the slides for my presentation, you can view them [here](https://josephcarl.github.io/slides/JoeCarl-CascadiaRConf-Slides).
 
 Tomorrow is the first day of summer quarter, which is the final quarter of my master's program. I'll be doing my capstone project as well as one other course. It's hard to believe I'm only 8 weeks from being done with the program. I can't wait to get started! 
