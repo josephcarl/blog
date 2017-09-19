@@ -78,17 +78,21 @@ Please feel free to check out this website and my [Github page](https://github.c
 
 ## Professional Experience
 
-**Data Analyst Intern** | June 2017 - Present
+**Data Analyst Intern** | June 2017 - August 2017
 
 CommerceHub | Seattle, WA
 
-- Assisting in developing lifetime value (LTV) and churn models for over 1500 products using R
+- Developed lifetime value (LTV) and churn models for over 106,000 products using R, forecasted to add over $36 million in revenue for clients
+
+- Created Bayesian structural time series model to demonstrate that a merchant’s change in
+shipping terms on Amazon resulted in a 10% lift in sales
 
 - Developed gradient boosting model to predict with 88% accuracy if a product will be reordered
 
-- Building dashboards in Power BI to show gross sales and growth across merchants, product categories, and sales channels
+- Built dashboards in Power BI to show gross sales and growth across merchants, product
+categories, and sales channels
 
-- Building dashboards using Prometheus and Grafana to monitor changes in inventory and product feeds between merchants and sales channels
+- Built dashboards using Prometheus and Grafana to monitor changes in inventory and product feeds between merchants and sales channels
 
 
 **Financial Institution Specialist** | July 2015 - August 2016

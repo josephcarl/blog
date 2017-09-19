@@ -1,0 +1,137 @@
+---
+title: "Visualizing Seattle Bike Collisions"
+author: ~
+date: '2017-09-19'
+slug: ''
+categories: ["R"]
+tags: ["R", "RStudio", "Seattle", "Biking", "Transportation"]
+draft: no
+showSocial: false
+coverImage: /
+---
+
+
+<p>It’s been a while since my last update. I’ve wanted to share a small project I’ve been working on over the past few months! As an avid cyclist, I love biking around Seattle, whether it’s heading to class, work, or just running errands. I live in Ballard near the Burke Gilman Trail, one of the flatter parts of Seattle, so I can often avoid Seattle’s notorious hills. While Seattle is great for biking compared to other cities, its bike infrastructure could definitely be improved. One way to assess bike facilities and look for new opportunities is to study bicycle collision data to identify hotspots and trends. Additionally, for the city to meet its Vision Zero goals of having no serious injuries or traffic fatalities, it needs to understand where and how collisions are happening. Fortunately, the City of Seattle makes all of this data available online! Below I will share some of my findings from this analysis.</p>
+<div id="data" class="section level2">
+<h2>Data</h2>
+<p>The dataset comes from <a href="https://data.seattle.gov/d/v7k9-7dn4?category=Transportation&amp;view_name=SDOT-Collisions">data.seattle.gov</a>, where all collision data in the City of Seattle is collected by the Seattle Department of Transportation (SDOT) and posted. Though the data appears as a map with points, it can be downloaded as a csv for analysis. Since I am looking only at collisions involving bicycles, I filtered only the observations where <code>COLLISIONTYPE</code> is “Cycles”. I downloaded this dataset in March 2017 originally, so it does not have summer 2017 data included in it.</p>
+<p>You can find the filtered dataset and source code for this analysis on <a href="https://github.com/josephcarl/Seattle-Biking">my Github page</a>.</p>
+<pre class="r"><code># Set working directory
+setwd(&quot;~/Documents/R Files/Seattle Biking&quot;)
+
+# Libraries
+library(ggplot2)
+library(readr)
+library(dplyr)
+library(lubridate)
+library(ggmap)
+
+# Read in data file
+bikedat &lt;- read_csv(&quot;SDOT_Collisions.csv&quot;, guess_max = 1500)
+
+# Convert incident date, incident time to date and time classes
+bikedat$INCDATE &lt;- mdy_hms(bikedat$INCDATE)
+bikedat$INCDTTM &lt;- parse_date_time(bikedat$INCDTTM, orders = &quot;mdy IMS p&quot;)
+
+# Extract latitude and longitude from shape variable
+  # Lat: take substring of Shape variable
+bikedat$Lat &lt;- as.numeric(substr(bikedat$Shape, start = 2, stop = 18))
+  # Long: Split Shape at &quot;, &quot; and unlist (lapply) to get 2nd element,
+  # then take substring to trim the &quot;)&quot; and convert to numeric
+bikedat$Long &lt;- as.numeric(substr(lapply(strsplit(bikedat$Shape, &quot;, &quot;), &#39;[&#39;, 2), start=0, stop = 13))</code></pre>
+</div>
+<div id="where-are-collisions-occurring" class="section level2">
+<h2>Where Are Collisions Occurring?</h2>
+<p>For some initial exploration, I played around with mapping the data using <code>ggmap</code> and the latitude and longitude information in the dataset. One thing I found interesting is that the vast majority of bike collisions actually happened during daylight. I expected there to be more collisions at dark or dawn/dusk, when there is less light to see cyclists. However, there is also usually more traffic on the road during the day, so there are more chances of a collision occurring. The following map shows the distribution of collisions in 2017. It looks like most collisions happen downtown and in the central neighborhoods.</p>
+<pre class="r"><code># Get Seattle map data
+seamap &lt;- get_map(&quot;Seattle&quot;, maptype = &quot;roadmap&quot;, zoom = 11)
+
+# Map of 2016 collisions, colored by time of day
+m.2016 &lt;- ggmap(seamap) +
+  geom_point(aes(x=Long, y=Lat, color=factor(LIGHTCOND)), data = bikedat[year(bikedat$INCDATE)==2016,])+
+  labs(title = &quot;Most Collisions in 2016 Happened During Daylight&quot;,
+       color=&quot;Light Conditions&quot;)
+m.2016</code></pre>
+<p><img src="/post/2017-09-19-seattle-biking1-rmd_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+</div>
+<div id="who-ran-into-whom" class="section level1">
+<h1>Who Ran Into Whom?</h1>
+<p>Another thing I wondered about was who usually hit whom during a collision. SDOT actually provides this information with the “SDOT Collision Code”. There are several dozen collision codes, but they can be combined into a few main categories: a vehicle in operation hit someone else, a driverless vehicle hit someone, a cyclist hit someone else, a pedestrian or non-traffic cyclist hit someone, or a pedestrian hit someone. Using this information, I created the <code>Striker</code> variable to make it easier to organize the observations. While this variable does not say who is legally at fault for a collision, it does answer the question of “who ran into whom” for a given collision.</p>
+<pre class="r"><code># Create variable &quot;Striker&quot; to describe &quot;Who Hit Whom&quot;, which can be determined from SDOT collision code
+  # dplyr&#39;s case_when() is useful for a more readable if-else syntax
+bikedat &lt;- bikedat %&gt;% 
+  mutate(Striker = factor(case_when(.$SDOT_COLCODE &gt;= 10 &amp; .$SDOT_COLCODE &lt;= 29 ~ &quot;Vehicle in Operation&quot;,
+                                    .$SDOT_COLCODE &gt;= 30 &amp; .$SDOT_COLCODE &lt;= 49 ~ &quot;Driverless Vehicle&quot;,
+                                    .$SDOT_COLCODE &gt;= 50 &amp; .$SDOT_COLCODE &lt;= 69 ~ &quot;Cyclist&quot;,
+                                    .$SDOT_COLCODE &gt;= 70 &amp; .$SDOT_COLCODE &lt;= 76 ~ &quot;Pedestrian or Non-Traffic Cyclist&quot;,
+                                    .$SDOT_COLCODE &gt;= 80 ~ &quot;Pedestrian Struck&quot;,
+                                    TRUE ~ as.character(NA))))</code></pre>
+<p>From mapping the data and zooming in just on my neighborhood of Ballard and the other neighborhoods of Northwest Seattle, we can see a few interesting findings. First off, it looks like most collisions occur on arterial streets, such as 8th Ave NW, 15th Ave NW, NW 85th Street, Leary Way, and Nickerson St. Additionally, the majority of collisions involved a vehicle in operation striking a cyclist. However, there are still a decent amount of collisions where the striker was a cyclist hitting someone else. Only a few observations had missing (NA) data, and no collisions were caused by a driverless vehicle.</p>
+<p><img src="/post/2017-09-19-seattle-biking1-rmd_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<div id="how-are-collisions-changing-over-time" class="section level2">
+<h2>How are Collisions Changing Over Time?</h2>
+<p>This made me wonder about whether these collisions are changing over time. Unfortunately, the number of collisions is on an upward trend, as is the proportion of collisions where the striker is a vehicle.</p>
+<pre class="r"><code>bikedat %&gt;% group_by(year(INCDATE), Striker) %&gt;% 
+  summarise(n = n()) %&gt;% 
+  rename(year = `year(INCDATE)`) %&gt;% 
+  ggplot(aes(x=year, y=n, fill=Striker))+
+  geom_col()+
+  labs(y=&quot;Number of Collisions&quot;,
+        x=&quot;Year&quot;,
+       title=&quot;Collisions Have Increased Over Time&quot;,
+       subtitle=&quot;Proportion of collisions Caused by Vehicles Increasing&quot;)</code></pre>
+<p><img src="/post/2017-09-19-seattle-biking1-rmd_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<pre class="r"><code>bikedat %&gt;% group_by(year(INCDATE), Striker) %&gt;% 
+  summarise(n = n()) %&gt;% 
+  rename(year = `year(INCDATE)`) %&gt;% 
+  ggplot(aes(x=year, y=n, fill=Striker))+
+  geom_col(position = &quot;fill&quot;)+
+  labs(y=&quot;Proportion of Collisions&quot;,
+       x=&quot;Year&quot;,
+       title=&quot;Collisions Have Increased Over Time&quot;,
+       subtitle=&quot;Proportion of collisions Caused by Vehicles Increasing&quot;)</code></pre>
+<p><img src="/post/2017-09-19-seattle-biking1-rmd_files/figure-html/unnamed-chunk-5-2.png" width="672" /></p>
+<p>This upward trend may be driven in part by the fact that Seattle’s population is booming, so the number of cars and bikes on the road has increased. This means there are simply more opportunities for a collision to occur. However, the rising number of collisions suggest that the status quo will not suffice if the city wants to meet its Vision Zero goals. I’m a big fan of protected bike lanes, which can greatly reduce the risk of an accident on a given street compared to riding a bike in a bike lane or mixed with traffic.</p>
+</div>
+</div>
+<div id="where-on-the-street-do-most-accidents-occur" class="section level1">
+<h1>Where on the Street Do Most Accidents Occur?</h1>
+<p>Perhaps not surprisingly, the most common location for a collision is at an intersection. About half of all collisions occur at an intersection, followed by mid-block, not related to an intersection. We can also see that these two collision types also make up most of the increase in collisions over the past several years, as other junction types for collisions have stayed relatively flat.</p>
+<pre class="r"><code>bikedat %&gt;% group_by(year(INCDATE), JUNCTIONTYPE) %&gt;% 
+  summarise(n = n()) %&gt;% 
+  rename(year = `year(INCDATE)`) %&gt;% 
+  ggplot(aes(x=year, y=n, group=JUNCTIONTYPE, color=JUNCTIONTYPE))+
+  geom_line()+
+  labs(y=&quot;Number of Collisions&quot;,
+       x=&quot;Year&quot;,
+       color=&quot;Junction Type&quot;,
+       title=&quot;Most Collisions Are At Intersections&quot;)</code></pre>
+<p><img src="/post/2017-09-19-seattle-biking1-rmd_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<div id="does-weather-play-a-role-in-collisions" class="section level2">
+<h2>Does Weather Play a Role in Collisions?</h2>
+<p>Though Seattle is generally known as a dark, wet, and rainy city, I wondered if those same conditions play into whether a collision occurs. As noted above, most collisions actually occur during the day, not when it’s dark out. Perhaps surprisingly, the following graphs also show that about 75% of collisions happen when the weather is clear or partly cloudy or when the road is dry. There is a noticeable subset of observations that occur in wet conditions and when it is overcast or raining, and relatively few collisions in other conditions. Perhaps it is not surprising that there are more collisions in favorable weather conditions, as there are many more people biking on nice weather days than in the cold, dark winter months!</p>
+<pre class="r"><code>bikedat %&gt;% group_by(year(INCDATE), ROADCOND) %&gt;% 
+  summarise(n = n()) %&gt;% 
+  rename(year = `year(INCDATE)`) %&gt;% 
+  ggplot(aes(x=year, y=n, fill=ROADCOND))+
+  geom_col(position = &quot;fill&quot;)+
+  labs(y=&quot;Proportion of Accidents&quot;,
+       title=&quot;Most Accidents Have Dry Road Conditions&quot;)</code></pre>
+<p><img src="/post/2017-09-19-seattle-biking1-rmd_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<pre class="r"><code>bikedat %&gt;% group_by(year(INCDATE), WEATHER) %&gt;% 
+  summarise(n = n()) %&gt;% 
+  rename(year = `year(INCDATE)`) %&gt;% 
+  ggplot(aes(x=year, y=n, fill=WEATHER))+
+  geom_col(position = &quot;fill&quot;)+
+  labs(y=&quot;Proportion of Accidents&quot;,
+       title=&quot;Most Accidents Have Clear Weather Conditions&quot;)</code></pre>
+<p><img src="/post/2017-09-19-seattle-biking1-rmd_files/figure-html/unnamed-chunk-7-2.png" width="672" /></p>
+</div>
+<div id="conclusion-and-further-exploration" class="section level2">
+<h2>Conclusion and Further Exploration</h2>
+<p>These are some of my main findings for collision data involving bikes in Seattle. Some of the main takeaways are that you should be extra careful when biking along arterials, at intersections, or during rush hour when the chance of a collision is higher. And always wear a helmet! Though I know it can be a divisive issue, I’m firmly in the camp that I would rather put up with the inconvenience or discomfort of a helmet than risk a head injury without one.</p>
+<p>I’m hoping to spend some more time with this data and do a deeper dive into what factors can help explain collisions. For example, looking just at collisions at intersections may be associated with different weather and road conditions, time of day, striker, and other factors than collisions occurring mid-block. I will have to save that exploration for another blog post!</p>
+<p>Additionally, since I originally downloaded this data in March, the launch of new bikesharing companies Spin, Limebike, and Ofo in Seattle are not included in this analysis. I definitely want to keep exploring this data and see if there is a noticeable change in collision data from the rise in new bikeshare companies.</p>
+<p>As mentioned above, you can find the filtered dataset and source code for this analysis and some other visualizations on <a href="https://github.com/josephcarl/Seattle-Biking">my Github page</a>.</p>
+</div>
+</div>
